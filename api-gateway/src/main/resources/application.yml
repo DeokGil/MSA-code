@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service  # Eureka에서 user-service 찾아서 로드밸런싱
+          predicates:
+            - Path=/users/** # /users/** 요청은 user-service로
+        - id: product-service
+          uri: lb://product-service  # Eureka에서 product-service 찾아서 로드밸런싱
+          predicates:
+              - Path=/products/**
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/orders/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
