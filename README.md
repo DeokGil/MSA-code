@@ -25,6 +25,12 @@ docker compose down
 
 ## ☸️ Kubernetes로 실행할 때
 
+```bash
+$env:PATH += ';c:\minikube'
+# 현재 세션에 PATH 추가
+
+```
+
 ### 1. 클러스터 시작
 ```bash
 minikube start
